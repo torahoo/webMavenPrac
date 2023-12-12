@@ -23,11 +23,24 @@ Dispatvher-servlet 을 나눠주기 위한 작업
         https://www.springframework.org/schema/context/spring-context.xsd">
         
     <!-- context를 쓰기 위해 xmlns:context를 위한 구문 추가 -->
-    <context:annotation-config/>
+    <!-- <context:annotation-config/> -->
+    <!-- ================================================================
+    * service-context나 servlet-context 둘 중 하나에 
+    * context:component-scan base-package="webmavenprac.web" 으로 스캔을 하면
+    * @Controller나 @Service 모두 한번에 사용 가능하나 불필요한 패키지들 또한 IoC 스캔범위에
+    * 들어가게 되므로 넣지 않도록 한다.
+    * 추가로 controller의 경우 URL 정보가 꼭 들어가야 하기에 IndexControlle 어노테이션 옆에
+    * URL 정보를 삽입한다.
+    ================================================================= -->
+    <context:component-scan base-package="webmavenprac.web.controller" />
 
 	<!-- 객체를 담아 빈으로 등록한다. 하지만 지금은 객체가 아닌 url을 직접 입력하여 사용한다. -->
 	<!-- MVC 컨테이너에 담긴다. --> 
-    <bean id="/index" class="webmavenprac.web.controller.IndexController"></bean>
+	<!-- ===========================================================================
+	indexController의 bean을 @Controller로 대체한다.
+	============================================================================ -->
+    <!-- <bean id="/index" class="webmavenprac.web.controller.IndexController"></bean> -->
+    
     <bean id="/notice/list" class="webmavenprac.web.controller.notice.ListController">
     	<!-- name의 noticeService는 ListController가 가지고 있는 setter를 의미하고
     		 ref의 noticeService는 밑의 bean id="noticeService"를 뜻한다. -->
@@ -38,8 +51,7 @@ Dispatvher-servlet 을 나눠주기 위한 작업
     <bean id="/notice/detail" class="webmavenprac.web.controller.notice.DetailController"></bean>
 
 	<!-- Tiles를 사용하기 위한 bean 등록 -->
-	<bean
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 		<!-- 
@@ -61,6 +73,7 @@ Dispatvher-servlet 을 나눠주기 위한 작업
     </bean>
     
 	<mvc:resources location="/static/" mapping="/**"></mvc:resources>
+	<mvc:annotation-driven />
 	
 </beans>
 

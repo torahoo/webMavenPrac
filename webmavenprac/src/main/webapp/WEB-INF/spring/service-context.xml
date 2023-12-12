@@ -31,7 +31,7 @@ Dispatvher-servlet 을 나눠주기 위한 작업
     어노테이션을 찾아 스캔하기 때문에 위의 context:annotation-config 는 해줄 필요 없게 된다.
   ==> context:component-scan 안에 context:annotation-config 기능이 들어있음.
   ================================================================================ -->
-    <context:component-scan base-package="webmavenprac.web.sevice.jdbc" />
+    <context:component-scan base-package="webmavenprac.web.sevice" />
 
 	<!-- 
 			DataSource를 사용하여 Connection을 주어야 하기에 Bean등록을 한다. (property의 reference를 위해) 
