@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import webmavenprac.web.entity.Notice;
 import webmavenprac.web.sevice.NoticeService;
@@ -34,8 +35,9 @@ import webmavenprac.web.sevice.NoticeService;
  *  @Component = 구성요소이기에 무슨 역할을 하는지 모른다.
  *  @Controller, @Service, @Repository등을
  *  이용해 해당 클래스가 무슨 역할을 하는지 구분해줄 수 있다.
+ *  @Component ==> @Service 로 대체
  * =========================================*/
-@Component 
+@Service
 public class JDBCNoticeService implements NoticeService {
 	
 	/* ==================================================== *
