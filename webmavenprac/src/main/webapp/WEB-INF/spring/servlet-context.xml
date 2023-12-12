@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  https://docs.spring.io/spring-framework/docs/ 를 통해 xml 설정파일 찾기 (가져온 버전 5.2.x)  -->
+<!-- ==============================================================================
+WEB-INF 폴더 안의 Dispatcher-servlet 을 복사하여 가져온것. 
+Dispatvher-servlet 을 나눠주기 위한 작업
+서블릿을 담당하는 servlet-context ==> 입출력
+웹 서비스를 담당하는 service-context ==> 서비스
+보안을 담당하는 security-context ==> 보안 관련
+명칭에는 따로 규칙이 없음. 다른 사람과의 개발을 같이 할 시 역할을 나누고 작업의 충돌을 피하기 위해 dispatcher를 나눈다.
+혼자 프로젝트를 할 시에도 객체지향과 프로젝트 수정 및 오류 고칠때 하나를 전부 고칠 필요없이 한 부분만 수정하면 되게끔 한다.
+서블릿의 폴더 구성 자체가 변하였기에 web.xml에서 바꿔준다.
+============================================================================== -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+        
+    <!-- context를 쓰기 위해 xmlns:context를 위한 구문 추가 -->
+    <context:annotation-config/>
+
+	<!-- 객체를 담아 빈으로 등록한다. 하지만 지금은 객체가 아닌 url을 직접 입력하여 사용한다. -->
+	<!-- MVC 컨테이너에 담긴다. --> 
+    <bean id="/index" class="webmavenprac.web.controller.IndexController"></bean>
+    <bean id="/notice/list" class="webmavenprac.web.controller.notice.ListController">
+    	<!-- name의 noticeService는 ListController가 가지고 있는 setter를 의미하고
+    		 ref의 noticeService는 밑의 bean id="noticeService"를 뜻한다. -->
+    	<!-- dipatcher-servlet을 읽으면서 bean의 noticeService 객체가 만들어지고  
+    		 ListController의 noticeService의 setter로 들어가 역할을 해준다.-->
+    	<!-- <property name="noticeService" ref="noticeService"></property> -->
+    </bean>
+    <bean id="/notice/detail" class="webmavenprac.web.controller.notice.DetailController"></bean>
+
+	<!-- Tiles를 사용하기 위한 bean 등록 -->
+	<bean
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+		<!-- 
+		밑의 order로  InternalResourceViewResolver 와 충돌하는 것을 막는다. tiles로 처리하지 못하면 
+		밑의 resolver가 찾아준다.
+		-->	
+		<property name="order" value="1" />
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions" value="/WEB-INF/tiles.xml" />
+	</bean>
+	<!-- Tiles를 사용하기 위한 bean 등록 END -->
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/view/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    	<property name="order" value="2"/>
+    </bean>
+    
+	<mvc:resources location="/static/" mapping="/**"></mvc:resources>
+	
+</beans>
+
+
+
+
+
+

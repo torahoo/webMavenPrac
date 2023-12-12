@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  https://docs.spring.io/spring-framework/docs/ 를 통해 xml 설정파일 찾기 (가져온 버전 5.2.x)  -->
+<!-- ==============================================================================
+WEB-INF 폴더 안의 Dispatcher-servlet 을 복사하여 가져온것. 
+Dispatvher-servlet 을 나눠주기 위한 작업
+서블릿을 담당하는 servlet-context ==> 입출력
+웹 서비스를 담당하는 service-context ==> 서비스
+보안을 담당하는 security-context ==> 보안 관련
+명칭에는 따로 규칙이 없음. 다른 사람과의 개발을 같이 할 시 역할을 나누고 작업의 충돌을 피하기 위해 dispatcher를 나눈다.
+혼자 프로젝트를 할 시에도 객체지향과 프로젝트 수정 및 오류 고칠때 하나를 전부 고칠 필요없이 한 부분만 수정하면 되게끔 한다.
+서블릿의 폴더 구성 자체가 변하였기에 web.xml에서 바꿔준다.
+============================================================================== -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+        
+    <!-- context를 쓰기 위해 xmlns:context를 위한 구문 추가 -->
+    <!-- <context:annotation-config/> -->
+    
+  <!-- =============================================================================== 
+  context:component-scan 어노테이션이 붙은 클래스를 찾아 객체화 시켜주는 역할
+    패키지 안의 클래스들을 스캔해 @Component가 붙으면 그 클래스를 생성
+    어노테이션을 찾아 스캔하기 때문에 위의 context:annotation-config 는 해줄 필요 없게 된다.
+  ==> context:component-scan 안에 context:annotation-config 기능이 들어있음.
+  ================================================================================ -->
+    <context:component-scan base-package="webmavenprac.web.sevice.jdbc" />
+
+	<!-- 
+			DataSource를 사용하여 Connection을 주어야 하기에 Bean등록을 한다. (property의 reference를 위해) 
+			My SQL 설정을 위해 pom.xml에 jdbc dependency가 추가 되있는지 꼭 확인한다.
+																							-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- property를 적을 땐 DataSource가 가지는 필드 네임과 똑같이 적어야 함으로 스펠링 주의 -->
+		<property name ="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name ="url" value="jdbc:mysql://localhost:3306/springmav_newlac" />
+		<property name ="username" value="practiceAccount" />
+		<property name ="password" value="1234" />
+	</bean>
+	
+	<!-- IoC Container에 닮겨 Controller와 함께 인식된다. -->
+	<!-- ====================================================================== 
+	NoticeService를 Interface화 하면서 이에 해당하는 Bean을 넣어주기위해 
+	webmavenprac.web.sevice.NoticeService 에서 
+	webmavenprac.web.sevice.jdbc.JDBCNoticeService 로 바꿔 준다.
+	(패키지 명 꼭 확인하기. jdbc면 jdbc 패키지, jpa면 jpa패키지 등 확인 할 것)  
+	앞으로도 해당 Interface를 이용해 JPA든 MyBatis든 바꾸자 하는 Service로 여기서 바꿔주면 된다.
+	======================================================================= -->
+	<!-- ======================================================================
+	밑의 noticeService 빈 등록은 JDBCNoticeService의 @Component로 대체되었다.
+	======================================================================= -->
+	<!-- <bean id="noticeService" class="webmavenprac.web.sevice.jdbc.JDBCNoticeService" >
+		Connection에 해당하는 정보들을 DataSource로 바꿔주기 위해 사용하는 property
+		Autowired를 사용하기 위해 주석 처리
+		<property name="dataSource" ref="dataSource" />
+	</bean> -->
+	
+</beans>
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Tiles는 현재 서비스되고 있지 않다. 지금은 tiles.apache.org 주소로 직접 들어가 가져왔다. -->
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+
+  <!-- definition에 name을 * 으로만 해놓을 시 위에서부터 resolver가 찾기 때문에 밑의 notice를
+  찾지 않게 된다. root.*을 사용하여 무한 루프에 빠지는 것을 방지한다. 동시에 indexController에서
+  반환하는 페이지를 index에서 root.index로 바꿔주도록 한다.-->
+  <!-- index 담당 -->
+  <definition name="root.*" template="/WEB-INF/view/inc/layout.jsp">
+    <put-attribute name="title" value="공지사항" />
+    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+    <put-attribute name="body" value="/WEB-INF/view/{1}.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+  </definition>
+
+
+  <!-- notice.list / notice.detail로 나눠 사용했던 부분을 wildcard로 효율적으로 바꿔준다.
+  	   notice.list ==> notice.* -->
+  <!-- NOTICE 담당 -->
+  <definition name="notice.*" template="/WEB-INF/view/customer/inc/layout.jsp">
+    <put-attribute name="title" value="공지사항" />
+    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/view/customer/inc/visual.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/view/customer/inc/aside.jsp" />
+    <!-- 밑의 body부분에는 list냐 detail이냐에 따라 list.jsp, detail.jsp로 바꿔줘야 함으로  
+    	 {1}으로 wildcard를 사용하여 값을 넣을수 있도록 한다.-->
+    <put-attribute name="body" value="/WEB-INF/view/customer/notice/{1}.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+  </definition>
+  
+  
+  <!-- tiles 설정시 비효율 적인 부분들을 고치기 위해 주석 처리 -->
+  <!-- DETAIL 담당 -->
+  <!-- <definition name="notice.detail" template="/WEB-INF/view/customer/inc/layout.jsp">
+    <put-attribute name="title" value="공지사항" />
+    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/view/customer/inc/visual.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/view/customer/inc/aside.jsp" />
+    <put-attribute name="body" value="/WEB-INF/view/customer/notice/detail.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+  </definition> -->
+  
+  
+</tiles-definitions>

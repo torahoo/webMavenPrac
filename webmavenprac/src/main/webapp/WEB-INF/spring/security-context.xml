@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  https://docs.spring.io/spring-framework/docs/ 를 통해 xml 설정파일 찾기 (가져온 버전 5.2.x)  -->
+<!-- ==============================================================================
+WEB-INF 폴더 안의 Dispatcher-servlet 을 복사하여 가져온것. 
+Dispatvher-servlet 을 나눠주기 위한 작업
+서블릿을 담당하는 servlet-context ==> 입출력
+웹 서비스를 담당하는 service-context ==> 서비스
+보안을 담당하는 security-context ==> 보안 관련
+명칭에는 따로 규칙이 없음. 다른 사람과의 개발을 같이 할 시 역할을 나누고 작업의 충돌을 피하기 위해 dispatcher를 나눈다.
+혼자 프로젝트를 할 시에도 객체지향과 프로젝트 수정 및 오류 고칠때 하나를 전부 고칠 필요없이 한 부분만 수정하면 되게끔 한다.
+============================================================================== -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	
+</beans>
+
+
+
+
+
+
