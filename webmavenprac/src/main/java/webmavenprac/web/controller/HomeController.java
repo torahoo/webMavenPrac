@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 있으므로. --> Root 대신 Home이라 지칭									  *
  * ================================================================== */
 @Controller
+@RequestMapping("/")
 public class HomeController {
 
 	/* ================================================================== *
@@ -45,7 +46,7 @@ public class HomeController {
 //		return mv;
 //	}
 	
-	@RequestMapping("/index")
+	@RequestMapping("index")
 	public String index() {
 		/* ================================ *
 		 * 그냥 실행할 시 오류가 발생한다.				*
@@ -58,11 +59,6 @@ public class HomeController {
 		 * ================================ */
 		System.out.println("index Activate");
 		return "root.index";
-	}
-	
-	@RequestMapping("/help")
-	public void help() {
-		System.out.println("aaaa Activate");
 	}
 	
 }

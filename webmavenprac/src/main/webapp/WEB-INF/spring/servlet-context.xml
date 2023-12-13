@@ -33,7 +33,11 @@ Dispatvher-servlet 을 나눠주기 위한 작업
     * URL 정보를 삽입한다.
     ================================================================= -->
     <context:component-scan base-package="webmavenprac.web.controller" />
-
+    
+    <!-- ================================================================================================= -->
+	<!-- ================================================================== *
+	 * 현재 밑의 index와 notice를 위한 bean은 @Controller로 대체되었으므로 주석처리한다.(29강)	*
+	 * ================================================================== -->
 	<!-- 객체를 담아 빈으로 등록한다. 하지만 지금은 객체가 아닌 url을 직접 입력하여 사용한다. -->
 	<!-- MVC 컨테이너에 담긴다. --> 
 	<!-- ===========================================================================
@@ -41,23 +45,24 @@ Dispatvher-servlet 을 나눠주기 위한 작업
 	============================================================================ -->
     <!-- <bean id="/index" class="webmavenprac.web.controller.IndexController"></bean> -->
     
-    <bean id="/notice/list" class="webmavenprac.web.controller.notice.ListController">
-    	<!-- name의 noticeService는 ListController가 가지고 있는 setter를 의미하고
-    		 ref의 noticeService는 밑의 bean id="noticeService"를 뜻한다. -->
-    	<!-- dipatcher-servlet을 읽으면서 bean의 noticeService 객체가 만들어지고  
-    		 ListController의 noticeService의 setter로 들어가 역할을 해준다.-->
-    	<!-- <property name="noticeService" ref="noticeService"></property> -->
+    <!-- <bean id="/notice/list" class="webmavenprac.web.controller.notice.ListController">
+    	name의 noticeService는 ListController가 가지고 있는 setter를 의미하고
+    		 ref의 noticeService는 밑의 bean id="noticeService"를 뜻한다.
+    	dipatcher-servlet을 읽으면서 bean의 noticeService 객체가 만들어지고  
+    		 ListController의 noticeService의 setter로 들어가 역할을 해준다.
+    	<property name="noticeService" ref="noticeService"></property>
     </bean>
-    <bean id="/notice/detail" class="webmavenprac.web.controller.notice.DetailController"></bean>
+    <bean id="/notice/detail" class="webmavenprac.web.controller.notice.DetailController"></bean> -->
+    <!-- ================================================================================================= -->
 
 	<!-- Tiles를 사용하기 위한 bean 등록 -->
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView" />
-		<!-- 
+		<!-- =================================================================== *
 		밑의 order로  InternalResourceViewResolver 와 충돌하는 것을 막는다. tiles로 처리하지 못하면 
 		밑의 resolver가 찾아준다.
-		-->	
+		 * =================================================================== -->	
 		<property name="order" value="1" />
 	</bean>
 	<bean
