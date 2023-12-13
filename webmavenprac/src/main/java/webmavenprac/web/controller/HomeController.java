@@ -18,8 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * --> import org.springframework.stereotype.Controller;
  * 가 옳은 import 객체임.
  * ====================================================== */
+/* ================================================================== *
+ * @RequestMapping을 통해 URL을 엮어주면서 Index 이외에 Help도 같이 넣어줄 건데 		  *
+ * 이는 IndexController라 지칭을 하기엔 범위가 좁으므로 폴더 명으로 바꿔주도록 한다. 		  *
+ * IndexController --> RootController (index, help 등 모두 root 폴더 안에 	  *
+ * 있으므로. --> Root 대신 Home이라 지칭									  *
+ * ================================================================== */
 @Controller
-public class IndexController {
+public class HomeController {
 
 	/* ================================================================== *
 	 * implements Controller 를 제거하였으니 Override된 handleRequest는 주석 처리한다. *
@@ -39,8 +45,8 @@ public class IndexController {
 //		return mv;
 //	}
 	
-	@RequestMapping("/aaa")
-	public void aaaa() {
+	@RequestMapping("/index")
+	public String index() {
 		/* ================================ *
 		 * 그냥 실행할 시 오류가 발생한다.				*
 		 * 설정 추가 필요. 						*
@@ -50,6 +56,12 @@ public class IndexController {
 		 * 없을시엔  @RequestMapping("/index")	*
 		 * 인식되지 않는다.						*
 		 * ================================ */
+		System.out.println("index Activate");
+		return "root.index";
+	}
+	
+	@RequestMapping("/help")
+	public void help() {
 		System.out.println("aaaa Activate");
 	}
 	
