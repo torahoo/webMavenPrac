@@ -78,6 +78,13 @@ Dispatvher-servlet 을 나눠주기 위한 작업
     </bean>
     
 	<mvc:resources location="/static/" mapping="/**"></mvc:resources>
+	
+	<!-- ========================================================================= *
+	 * 기본적으로 @Controller를 쓸땐 <context:component-scan base-package="..." />
+	 * 를 통해 패키지 스캔범위를 지정하여 component를 스캔하는데 이때 component, service 등의 객체들을 
+	 * 조회하게 된다. 여기서 특히 @Controller의 경우엔 <mvc:annotation-driven />이 없을 시 
+	 * 어노테이션이 정상 작돟라지 않으므로 주의
+	 * ========================================================================= -->
 	<mvc:annotation-driven />
 	
 </beans>

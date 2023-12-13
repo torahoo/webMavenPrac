@@ -57,7 +57,7 @@ public class HomeController {
 		 * 없을시엔  @RequestMapping("/index")	*
 		 * 인식되지 않는다.						*
 		 * ================================ */
-		System.out.println("index Activate");
+		System.out.println("homeController index Activate");
 		return "root.index";
 	}
 	

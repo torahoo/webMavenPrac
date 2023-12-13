@@ -33,12 +33,15 @@ public class NoticeController {
 
 	@RequestMapping("list")
 	public String list() throws ClassNotFoundException, SQLException {
+		System.out.println("noticeController list Activate");
 		List<Notice> list = noticeService.getList(1, "TITLE", "");
+		
 		return "notice.list";
 	}
 	
 	@RequestMapping("detail")
 	public String detail() {
+		System.out.println("noticeController detail Activate");
 		return "notice.detail";
 	}
 	
